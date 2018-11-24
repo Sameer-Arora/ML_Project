@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="630eff3c-c25c-472d-9798-8b3d7afb4380" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test_gpu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.py" beforeDir="false" afterPath="$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.py" afterDir="false" />
-    </list>
+    <list default="true" id="630eff3c-c25c-472d-9798-8b3d7afb4380" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,12 +254,12 @@
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1212" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.17833698" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.17833698" />
       <window_info id="Structure" order="1" sideWeight="0.50163937" side_tool="true" weight="0.24972618" />
       <window_info id="Favorites" order="2" sideWeight="0.500821" side_tool="true" weight="0.24972618" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49836245" visible="true" weight="0.43867925" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49836245" visible="true" weight="0.43867925" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
