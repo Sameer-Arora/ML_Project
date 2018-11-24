@@ -6,7 +6,7 @@
 # Research and Development sponsored by the nucl.ai Conference!
 #   http://events.nucl.ai/
 #   July 18-20, 2016 in Vienna/Austria.
-#
+
 
 import os
 import sys
@@ -97,7 +97,6 @@ from lasagne.layers import Conv2DLayer as ConvLayer, Pool2DLayer as PoolLayer
 from lasagne.layers import InputLayer, ConcatLayer
 
 print('{}  - Using device `{}` for processing the images.{}'.format(ansi.CYAN, theano.config.device, ansi.ENDC))
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Convolutional Neural Network
@@ -602,6 +601,7 @@ class NeuralGenerator(object):
             print('{}'.format(ansi.ENDC))
 
             # Setup the seed for the optimization as specified by the user.
+
             shape = self.content_img.shape[2:]
             if args.seed == 'content':
                 Xn = self.content_img[0] + self.model.pixel_mean

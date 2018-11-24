@@ -1,0 +1,5 @@
+*.tar.gz
+*.pkl.bz2
+*.zip
+train_1/
+CIFAR10-VGG19-Tensorflow-master/
