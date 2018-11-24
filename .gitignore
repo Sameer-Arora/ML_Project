@@ -3,3 +3,4 @@
 *.zip
 train_1/
 CIFAR10-VGG19-Tensorflow-master/
+models-master/
