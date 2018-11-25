@@ -1,12 +1,4 @@
 #!/usr/bin/env python3
-#
-# Neural Doodle!
-# Copyright (c) 2016, Alex J. Champandard.
-#
-# Research and Development sponsored by the nucl.ai Conference!
-#   http://events.nucl.ai/
-#   July 18-20, 2016 in Vienna/Austria.
-
 
 import os
 import sys
@@ -18,7 +10,6 @@ import argparse
 import itertools
 import collections
 
-# Configure all options first so we can custom load other libraries (Theano) based on device specified by user.
 parser = argparse.ArgumentParser(description='Generate a new image by applying style onto a content image.',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 add_arg = parser.add_argument
@@ -46,31 +37,11 @@ add_arg('--print-every', default=10, type=int, help='How often to log statistics
 add_arg('--save-every', default=10, type=int, help='How frequently to save PNG into `frames`.')
 args = parser.parse_args()
 
-
-# ----------------------------------------------------------------------------------------------------------------------
-
-# Color coded output helps visualize the information a little better, plus looks cool!
-class ansi:
-    BOLD = '\033[1;97m'
-    WHITE = '\033[0;97m'
-    YELLOW = '\033[0;33m'
-    YELLOW_B = '\033[0;33m'
-    RED = '\033[0;31m'
-    RED_B = '\033[1;31m'
-    BLUE = '\033[0;94m'
-    BLUE_B = '\033[1;94m'
-    CYAN = '\033[0;36m'
-    CYAN_B = '\033[1;36m'
-    ENDC = '\033[0m'
-
-
 def error(message, *lines):
-    string = "\n{}ERROR: " + message + "{}\n" + "\n".join(lines) + "{}\n"
-    print(string.format(ansi.RED_B, ansi.RED, ansi.ENDC))
+    print("\nERROR: " + message + "{}\n" + "\n".join(lines) + "{}\n")
     sys.exit(-1)
 
-
-print('{}Neural Doodle for semantic style transfer.{}'.format(ansi.CYAN_B, ansi.ENDC))
+print('Neural Doodle for semantic style transfer')
 
 # Load the underlying deep learning libraries based on the device specified.  If you specify THEANO_FLAGS manually,
 # the code assumes you know what you are doing and they are not overriden!
@@ -96,7 +67,7 @@ import lasagne
 from lasagne.layers import Conv2DLayer as ConvLayer, Pool2DLayer as PoolLayer
 from lasagne.layers import InputLayer, ConcatLayer
 
-print('{}  - Using device `{}` for processing the images.{}'.format(ansi.CYAN, theano.config.device, ansi.ENDC))
+print('Using device for processing the images.')
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Convolutional Neural Network
