@@ -39,11 +39,14 @@ from Preprocessing import utils
 from Preprocessing.utils import load_data, load_img, imshow, load_noise_img, show_results
 from Preprocessing import Theano
 
-tf.enable_eager_execution()
-print("Eager execution: {}".format(tf.executing_eagerly()))
-
+# Assume that you have 12GB of GPU memory and want to allocate ~4GB:
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333)
 config = tf.ConfigProto()
 config.gpu_options.allocator_type = 'BFC'
+
+tf.enable_eager_execution(config=config)
+print("Eager execution: {}".format(tf.executing_eagerly()))
+
 
 dataset_folder_path = 'train_1'
 utils.load_data(dataset_folder_path)
@@ -77,8 +80,9 @@ def deprocess_img(processed_img):
 
 class Neural_patch():
 
-    def __init__(self,device_name):
+    def __init__(self,device_name,iter=25):
         self.device_name=device_name
+        self.iterations=iter
 
     # Content layer where will pull our feature maps
     content_layers = ['block4_conv2']
@@ -368,11 +372,11 @@ class Neural_patch():
 
 
     def run_tensorflow(self,content_path,style_path):
-        with tf.device("/cpu:0"):
+        with tf.device(self.device_name):
             imshow(deprocess_img(load_and_process_img(content_path)),squeze=False)
             plt.show()
             best, best_loss = self.run_style_transfer(content_path, style_path,
-                                                 style_map_path, content_map_path,num_iterations=15)
+                                                 style_map_path, content_map_path,num_iterations=self.iterations)
             show_results(results, best, content_path, style_path)
 
     ## Run for complete dataset.
@@ -400,7 +404,7 @@ class Neural_patch():
         Style_Images, Content_Images = sImages[: round(0.50 * len(sImages))], Images[round(0.50 * len(Images)):]
         no_images=100;
 
-        with tf.device("/cpu:0"):
+        with tf.device(self.device_name):
 
             i=0;
             for style_path ,content_path in zip(Style_Images, Content_Images):
@@ -408,7 +412,7 @@ class Neural_patch():
                 content_path = dataset_folder_path + "/" + content_path;
                 style_path = sdataset_folder_path + "/" + style_path;
 
-                best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=25)
+                best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=self.iterations)
                 show_results(results,best, content_path, style_path)
                 if i==no_images:
                     break
@@ -424,12 +428,13 @@ if not os.path.exists(results + dataset_folder_path):
 
 if __name__ == "__main__":
     # option 1: execute code with extra process for just two images
-    device_name = "/gpu:0"
+    device_name = "/cpu:0"
 
-    content_path = 'samples/Freddie.jpg'
-    content_map_path = 'samples/Freddie_sem.png'
-    style_path = 'samples/Mia.jpg'
-    style_map_path = 'samples/Mia_sem.png'
+    device_name = "/gpu:0"
+    content_path = 'samples/ck.jpg'
+    content_map_path = 'samples/ck_color_mask.png'
+    style_path = 'samples/Renoir.jpg'
+    style_map_path = 'samples/Renoir_color_mask.png'
 
     obj = Neural_patch(device_name);
     #p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))

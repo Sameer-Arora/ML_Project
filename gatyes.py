@@ -39,6 +39,8 @@ from tensorflow.python.keras import backend as K
 tf.enable_eager_execution()
 print("Eager execution: {}".format(tf.executing_eagerly()))
 
+max_size=512
+
 dataset_folder_path = 'train_1'
 import zipfile
 from zipfile import ZipFile
@@ -50,7 +52,7 @@ if not isdir(dataset_folder_path):
 
 
 def load_and_process_img(path_to_img):
-    img = load_img(path_to_img)
+    img = load_img(path_to_img,max_size)
     print(img.shape)
     img = tf.keras.applications.vgg19.preprocess_input(img)
     return img
@@ -91,8 +93,9 @@ class Gatyes:
     results = "gatyes_results/"
 
 
-    def __init__(self,device_name):
+    def __init__(self,device_name,iter=1000):
         self.device_name=device_name
+        self.iterations=iter
 
     # ## Build the Model
     def get_model(self):
@@ -324,9 +327,8 @@ class Gatyes:
             plt.yticks([])
             plt.draw()
 
+        plt.savefig(self.results + content_path + '_inter.jpg')
         return best_img, best_loss
-
-
 
     dataset_folder_path='final_content/'
     con_weight = 1e+3
@@ -342,7 +344,7 @@ class Gatyes:
     def run_tensorflow(self,content_path,style_path):
 
         with tf.device(self.device_name):
-            best, best_loss = self.run_style_transfer(content_path,style_path, num_iterations=1000)
+            best, best_loss = self.run_style_transfer(content_path,style_path, num_iterations=self.iterations)
             show_results(self.results,best,content_path,style_path)
 
     def run_tensorflow2(self):
@@ -366,7 +368,7 @@ class Gatyes:
         np.random.shuffle(Images)
         np.random.shuffle(sImages)
         # print (Images)
-        Style_Images, Content_Images = sImages[: round(0.50 * len(sImages))], Images[round(0.50 * len(Images)):]
+        Style_Images, Content_Images = sImages[: round( len(sImages))], Images[round(len(Images)):]
 
         no_images=100;
 
@@ -377,7 +379,7 @@ class Gatyes:
                 content_path = dataset_folder_path + "/" + content_path;
                 style_path = sdataset_folder_path + "/" + style_path;
 
-                best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=1000)
+                best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=self.iterations)
                 show_results(self.results,best, content_path, style_path)
                 if i==no_images:
                     break;

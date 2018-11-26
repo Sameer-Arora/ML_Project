@@ -53,8 +53,8 @@ def load_noise_img(img):
     return img
 
 
-def load_img(path_to_img):
-    max_dim = 512
+def load_img(path_to_img,max_dim=260):
+
     img = Image.open(path_to_img).convert('RGB')
     long = max(img.size)
     scale = max_dim / long

@@ -1,6 +1,7 @@
 import argparse
 import multiprocessing
 
+from Sematic import Semantic
 from gatyes import Gatyes
 from Neural_Patches import Neural_patch
 
@@ -30,13 +31,13 @@ if __name__ == "__main__":
         device_name = "/cpu:0"
 
     if (args.model == "Gateys"):
-        mod = Gatyes(device_name)
+        mod = Gatyes(device_name,int(args.iterations))
 
     if (args.model == "Neural_patch"):
-        mod = Neural_patch(device_name)
+        mod = Neural_patch(device_name,int(args.iterations))
 
     if (args.model == "Semantic_Style"):
-        mod = Semantic(device_name)
+        mod = Semantic(device_name,int(args.iterations))
 
     p = multiprocessing.Process(target=mod.run_tensorflow(args.content, args.style))
     p.start()
