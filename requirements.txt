@@ -1,0 +1,4 @@
+cudatoolkit
+cudnn
+tensorflow-gpu
+

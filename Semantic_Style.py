@@ -48,12 +48,14 @@ config.gpu_options.allocator_type = 'BFC'
 dataset_folder_path = 'train_1'
 utils.load_data(dataset_folder_path)
 
+
 ### Prepare the data
 def load_and_process_img(path_to_img):
     img = load_img(path_to_img)
-    #print("img shape",img.shape)
+    # print("img shape",img.shape)
     img = tf.keras.applications.vgg19.preprocess_input(img)
     return img
+
 
 def deprocess_img(processed_img):
     x = processed_img.copy()
@@ -73,6 +75,7 @@ def deprocess_img(processed_img):
     x = np.clip(x, 0, 255).astype('uint8')
     return x
 
+
 # Content layer where will pull our feature maps
 content_layers = ['block5_conv2']
 
@@ -83,6 +86,7 @@ style_layers = ['block4_conv1',
 
 num_content_layers = len(content_layers)
 num_style_layers = len(style_layers)
+
 
 # ## Build the Model
 def get_model():
@@ -109,7 +113,8 @@ def get_model():
 
 # ### Content Loss
 def get_content_loss(base_content, target):
-  return tf.reduce_mean(tf.square(base_content - target))
+    return tf.reduce_mean(tf.square(base_content - target))
+
 
 ## Style Loss
 def get_style_loss_(base_style_patches, target_style):
@@ -117,33 +122,36 @@ def get_style_loss_(base_style_patches, target_style):
     current image using normalized cross-correlation, then computes the mean squared error for all patches.
     """
     style_loss = 0
-    #print(target_style)
+    # print(target_style)
     # Extract the patches from the current image, as well as their magnitude.
     size = 3
     stride = 4
-    patches = tf.squeeze(tf.extract_image_patches( target_style, ksizes=[1, size, size, 1], strides=[1, stride, stride, 1]
-                                                  , rates=[1, 1, 1, 1], padding='VALID'),0)
+    patches = tf.squeeze(
+        tf.extract_image_patches(target_style, ksizes=[1, size, size, 1], strides=[1, stride, stride, 1]
+                                 , rates=[1, 1, 1, 1], padding='VALID'), 0)
 
-#    patches=tf.reshape(patches,[(target_style.shape[1]-2)*(target_style.shape[2]-2),-1 ])
-    patches=tf.reshape(patches,[( ( target_style.shape[1]- size )// stride +1 )*( ( target_style.shape[2]- size )// stride +1 ),-1 ])
-    #print(patches)
+    #    patches=tf.reshape(patches,[(target_style.shape[1]-2)*(target_style.shape[2]-2),-1 ])
+    patches = tf.reshape(patches, [
+        ((target_style.shape[1] - size) // stride + 1) * ((target_style.shape[2] - size) // stride + 1), -1])
+    # print(patches)
 
     for patch in patches:
-        min_norm=10000000000;
-        sel_nei=0;
+        min_norm = 10000000000;
+        sel_nei = 0;
 
         for base_patch in base_style_patches:
             # print(patch)
             # print(base_patch)
-            norm= tf.reduce_sum( tf.multiply( patch, base_patch ) )
-            cross_corre = norm / ( tf.norm(patch) * tf.norm(base_patch));
+            norm = tf.reduce_sum(tf.multiply(patch, base_patch))
+            cross_corre = norm / (tf.norm(patch) * tf.norm(base_patch));
             if min_norm > cross_corre:
-                min_norm=cross_corre;
-                sel_nei= tf.convert_to_tensor(base_patch);
+                min_norm = cross_corre;
+                sel_nei = tf.convert_to_tensor(base_patch);
 
-        style_loss+= tf.reduce_mean(tf.square(patch-sel_nei));
-            
+        style_loss += tf.reduce_mean(tf.square(patch - sel_nei));
+
     return style_loss
+
 
 # ## Apply style transfer to our images
 # ### Run Gradient Descent
@@ -172,9 +180,9 @@ def get_feature_representations(model, content_path, style_path):
 
     # Get the style and content feature representations from our model
     style_features = [style_layer[0] for style_layer in style_outputs[:num_style_layers]]
-    content_features = [ content_layer[0] for content_layer in content_outputs[num_style_layers:] ]
-    #print("NO style ",num_style_layers)
-    #print("Base featurs",content_features)
+    content_features = [content_layer[0] for content_layer in content_outputs[num_style_layers:]]
+    # print("NO style ",num_style_layers)
+    # print("Base featurs",content_features)
     return style_features, content_features
 
 
@@ -202,7 +210,7 @@ def compute_loss(model, loss_weights, init_image, base_style_patches, content_fe
     # our model is callable just like any other function!
     model_outputs = model(init_image)
 
-    print("NO style ",num_style_layers)
+    print("NO style ", num_style_layers)
     style_output_features = model_outputs[:num_style_layers]
     content_output_features = model_outputs[num_style_layers:]
     #
@@ -218,13 +226,13 @@ def compute_loss(model, loss_weights, init_image, base_style_patches, content_fe
     # Accumulate style losses from all layers
     weight_per_style_layer = 1.0 / float(num_style_layers)
 
-    for base_sty_patch,target_style in zip( base_style_patches,style_output_features ):
-        style_score += weight_per_style_layer * get_style_loss_( base_sty_patch , target_style)
+    for base_sty_patch, target_style in zip(base_style_patches, style_output_features):
+        style_score += weight_per_style_layer * get_style_loss_(base_sty_patch, target_style)
 
     # Accumulate content losses from all layers
     weight_per_content_layer = 1.0 / float(num_content_layers)
     for target_content, comb_content in zip(content_features, content_output_features):
-        content_score += weight_per_content_layer * get_content_loss( comb_content[0], target_content[0] )
+        content_score += weight_per_content_layer * get_content_loss(comb_content[0], target_content[0])
 
     style_score *= style_weight
     content_score *= content_weight
@@ -233,6 +241,7 @@ def compute_loss(model, loss_weights, init_image, base_style_patches, content_fe
     loss = style_score + content_score
     return loss, style_score, content_score
 
+
 def compute_grads(cfg):
     with tf.GradientTape() as tape:
         all_loss = compute_loss(**cfg)
@@ -240,11 +249,13 @@ def compute_grads(cfg):
     total_loss = all_loss[0]
     return tape.gradient(total_loss, cfg['init_image']), all_loss
 
+
 # ### Optimization loop
 import IPython.display
 
+
 def run_style_transfer(content_path, style_path,
-                       content_map_path="",style_map_path="",
+                       content_map_path="", style_map_path="",
                        num_iterations=1000,
                        content_weight=1e3,
                        style_weight=1e-2):
@@ -259,20 +270,22 @@ def run_style_transfer(content_path, style_path,
 
     size = 3
     stride = 4
-    base_style_patches=[]
-    i=0
-    style_img=load_img(style_path)
+    base_style_patches = []
+    i = 0
+    style_img = load_img(style_path)
 
     for style_feat_img in style_features:
-        li= tf.squeeze(tf.extract_image_patches( tf.expand_dims(style_feat_img,axis=0) , ksizes=[1, size, size, 1], strides=[1, stride, stride, 1]
-                                            , rates=[1, 1, 1, 1], padding='VALID'), 0)
-        li = tf.reshape(li, [( ( style_feat_img.shape[0] - size ) // stride +1 ) * ( ( style_feat_img.shape[1]-size )//stride+1 ), -1])
-        #li = tf.reshape(li, [(style_feat_img.shape[0] - 2) * (style_feat_img.shape[1] - 2), -1])
-        base_style_patches .append(li)
+        li = tf.squeeze(tf.extract_image_patches(tf.expand_dims(style_feat_img, axis=0), ksizes=[1, size, size, 1],
+                                                 strides=[1, stride, stride, 1]
+                                                 , rates=[1, 1, 1, 1], padding='VALID'), 0)
+        li = tf.reshape(li, [
+            ((style_feat_img.shape[0] - size) // stride + 1) * ((style_feat_img.shape[1] - size) // stride + 1), -1])
+        # li = tf.reshape(li, [(style_feat_img.shape[0] - 2) * (style_feat_img.shape[1] - 2), -1])
+        base_style_patches.append(li)
 
-        #print( i,len( base_style_patches[i] ), base_style_patches[i][0] )
-        i+=1
-    #print(len(base_style_patches))
+        # print( i,len( base_style_patches[i] ), base_style_patches[i][0] )
+        i += 1
+    # print(len(base_style_patches))
 
     # Set initial image
     init_image = load_noise_img(load_and_process_img(content_path))
@@ -319,9 +332,9 @@ def run_style_transfer(content_path, style_path,
 
         print("gradient agya")
         clipped = tf.clip_by_value(init_image, min_vals, max_vals)
-        #print("II 1",init_image)
+        # print("II 1",init_image)
         init_image.assign(clipped)
-        #print("II 2",cfg['init_image'])
+        # print("II 2",cfg['init_image'])
         end_time = time.time()
 
         if loss < best_loss:
@@ -352,31 +365,33 @@ def run_style_transfer(content_path, style_path,
 
     return best_img, best_loss
 
+
 results = "results/"
-dataset_folder_path='samples/'
+dataset_folder_path = 'samples/'
 
 if not os.path.exists(results + dataset_folder_path):
     os.makedirs(results + dataset_folder_path)
-
 
 content_path = 'samples/Freddie.jpg'
 content_map_path = 'samples/Freddie_sem.png'
 style_path = 'samples/Mia.jpg'
 style_map_path = 'samples/Mia_sem.png'
 
+
 def run_tensorflow():
     with tf.device("/gpu:0"):
-        imshow(deprocess_img(load_and_process_img(content_path)),squeze=False)
+        imshow(deprocess_img(load_and_process_img(content_path)), squeze=False)
         plt.show()
-        best, best_loss = run_style_transfer(content_path,style_path,
-                                             style_map_path,content_map_path,num_iterations=15)
-        show_results(results,best,content_path,style_path)
+        best, best_loss = run_style_transfer(content_path, style_path,
+                                             style_map_path, content_map_path, num_iterations=15)
+        show_results(results, best, content_path, style_path)
+
 
 ## Run for complete dataset.
 def run_tensorflow2():
     ## running for our dataset
     Images = []
-    dataset_folder_path='train_1/'
+    dataset_folder_path = 'train_1/'
 
     for filename in os.listdir(dataset_folder_path):
         if filename.endswith(".jpg") or filename.endswith(".png"):
@@ -386,21 +401,24 @@ def run_tensorflow2():
     np.random.shuffle(Images)
     # print (Images)
     Style_Images, Content_Images = Images[: round(0.50 * len(Images))], Images[round(0.50 * len(Images)):]
-    no_images=100;
+    no_images = 100;
 
-    with tf.device("/gpu:0"):
+    with tf.device("/cpu:0"):
 
-        i=0;
+        i = 0;
         for content_path, style_path in zip(Style_Images, Content_Images):
-            print("Path",content_path, style_path)
+            print("Path", content_path, style_path)
             content_path = dataset_folder_path + "/" + content_path;
+            content_map_path = content_path.split('.')[0] + "_sem.jpg";
             style_path = dataset_folder_path + "/" + style_path;
+            style_map_path = style_path.split('.')[0] + "_sem.jpg";
 
-            best, best_loss = run_style_transfer(content_path, style_path, num_iterations=25)
-            show_results(results,best, content_path, style_path)
-            if i==no_images:
+            best, best_loss = run_style_transfer(content_path, style_path,content_map_path=content_map_path,style_map_path=style_map_path, num_iterations=25)
+            show_results(results, best, content_path, style_path)
+            if i == no_images:
                 break
-            i+=1
+            i += 1
+
 
 if __name__ == "__main__":
     # option 1: execute code with extra process for just two images
