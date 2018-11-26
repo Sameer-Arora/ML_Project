@@ -267,8 +267,8 @@ class Neural_patch():
     def run_style_transfer(self,content_path, style_path,
                            content_map_path="",style_map_path="",
                            num_iterations=1000,
-                           content_weight=1,
-                           style_weight=2500, trans_weight=1):
+                           content_weight=1e4,
+                           style_weight=1e-2, trans_weight=1):
         # We don't need to (or want to) train any layers of our model, so we set their
         # trainable to false.
         model = self.get_model()
@@ -321,8 +321,8 @@ class Neural_patch():
 
         # For displaying
         num_rows = 2
-        num_cols = 10
-        display_interval = num_cols*num_rows
+        num_cols = 5
+        display_interval = num_iterations / (num_rows * num_cols);
         start_time = time.time()
         global_start = time.time()
 
@@ -340,9 +340,7 @@ class Neural_patch():
 
             print("gradient agya")
             clipped = tf.clip_by_value(init_image, min_vals, max_vals)
-            #print("II 1",init_image)
             init_image.assign(clipped)
-            #print("II 2",cfg['init_image'])
             end_time = time.time()
 
             if loss < best_loss:
@@ -356,7 +354,9 @@ class Neural_patch():
                 # Use the .numpy() method to get the concrete numpy array
                 plot_img = init_image.numpy()
                 plot_img = deprocess_img(plot_img)
-                imgs.append(plot_img)
+                if i% display_interval==0:
+                    imgs.append(plot_img)
+
                 print('Iteration: {}'.format(i))
                 print('Total loss: {:.4e}, '
                       'style loss: {:.4e}, '
@@ -437,11 +437,12 @@ if __name__ == "__main__":
     style_path = 'samples/Renoir.jpg'
     style_map_path = 'samples/Renoir_color_mask.png'
 
-    obj = Neural_patch(device_name,1,"samples");
+    obj = Neural_patch(device_name,5,"samples");
     p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
     #p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()
     p.join()
+    plt.show()
     # option 2: just execute the function for whole dataset
     # p = multiprocessing.Process(target=run_tensorflow2)
     # p.start()

@@ -39,7 +39,7 @@ from tensorflow.python.keras import backend as K
 tf.enable_eager_execution()
 print("Eager execution: {}".format(tf.executing_eagerly()))
 
-max_size=512
+max_size=260
 
 def load_and_process_img(path_to_img):
     img = load_img(path_to_img,max_size)
@@ -302,7 +302,10 @@ class Gatyes:
                 # Use the .numpy() method to get the concrete numpy array
                 plot_img = init_image.numpy()
                 plot_img = deprocess_img(plot_img)
-                imgs.append(plot_img)
+
+                if i% display_interval==0:
+                    imgs.append(plot_img)
+
                 print('Iteration: {}'.format(i))
                 print('Total loss: {:.4e}, '
                       'style loss: {:.4e}, '
@@ -312,6 +315,7 @@ class Gatyes:
 
         print('Total time: {:.4f}s'.format(time.time() - global_start))
         plt.figure(figsize=(14, 4))
+
         for i, img in enumerate(imgs):
             plt.subplot(num_rows, num_cols, i + 1)
             plt.imshow(img)
@@ -382,7 +386,7 @@ if __name__ == "__main__":
     style_path = 'samples/Renoir.jpg'
     style_map_path = 'samples/Renoir_color_mask.png'
 
-    obj= Gatyes(device_name,dataset_folder_path="samples");
+    obj= Gatyes(device_name,50,dataset_folder_path="samples");
     p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
     #p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()

@@ -4,10 +4,26 @@
     <list default="true" id="630eff3c-c25c-472d-9798-8b3d7afb4380" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Neural_Patches.py" beforeDir="false" afterPath="$PROJECT_DIR$/Neural_Patches.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Preprocessing/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocessing/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sematic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sematic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/batches.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/data_batch_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/data_batch_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/data_batch_3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/data_batch_4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/data_batch_5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/readme.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-batches-py/test_batch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cifar-10-python.tar.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fcontent/1200px-The_Great_Wave_off_Kanagawa.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fcontent/Green_Sea_Turtle_grazing_seagrass.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gatyes.py" beforeDir="false" afterPath="$PROJECT_DIR$/gatyes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/dancing.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/picasso.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_results/samples/ck.jpg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/neural_results/samples/ck.jpg.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_results/samples/ck.jpg_inter.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/neural_results/samples/ck.jpg_inter.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_results/samples/ck.jpg_res.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/neural_results/samples/ck.jpg_res.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_results/samples/ck.jpg_inter.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/semantic_results/samples/ck.jpg_inter.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_results/samples/ck.jpg_res.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/semantic_results/samples/ck.jpg_res.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Sematic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="391" column="20" selection-start-line="391" selection-start-column="20" selection-end-line="391" selection-end-column="20" />
+            <state relative-caret-position="-1378">
+              <caret line="299" column="44" selection-start-line="299" selection-start-column="44" selection-end-line="299" selection-end-column="44" />
               <folding>
                 <element signature="e#49#71#0" expanded="true" />
               </folding>
@@ -44,17 +60,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Neural_Patches.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="352" column="20" selection-start-line="352" selection-start-column="20" selection-end-line="352" selection-end-column="20" />
+            <state relative-caret-position="-36">
+              <caret line="269" column="45" selection-start-line="269" selection-start-column="45" selection-end-line="269" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gatyes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2024">
-              <caret line="389" column="14" lean-forward="true" selection-start-line="389" selection-start-column="14" selection-end-line="389" selection-end-column="14" />
+            <state relative-caret-position="440">
+              <caret line="305" column="41" selection-start-line="305" selection-start-column="41" selection-end-line="305" selection-end-column="41" />
               <folding>
                 <element signature="e#75#97#0" expanded="true" />
               </folding>
@@ -92,8 +108,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Preprocessing/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+            <state relative-caret-position="270">
+              <caret line="55" column="35" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
               <folding>
                 <element signature="e#11#33#0" expanded="true" />
               </folding>
@@ -113,7 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cfg</find>
       <find>get_model</find>
       <find>print</find>
       <find>content_layers</find>
@@ -141,8 +156,9 @@
       <find>load_img</find>
       <find>device_na</find>
       <find>gpu</find>
-      <find>loss</find>
       <find>results</find>
+      <find>max_</find>
+      <find>loss</find>
     </findStrings>
     <replaceStrings>
       <replace>min_norm</replace>
@@ -174,9 +190,9 @@
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/Readme.txt" />
         <option value="$PROJECT_DIR$/Preprocessing/utils.py" />
+        <option value="$PROJECT_DIR$/gatyes.py" />
         <option value="$PROJECT_DIR$/Neural_Patches.py" />
         <option value="$PROJECT_DIR$/Sematic.py" />
-        <option value="$PROJECT_DIR$/gatyes.py" />
       </list>
     </option>
   </component>
@@ -236,7 +252,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.gatyes">
+  <component name="RunManager" selected="Python.Sematic">
     <configuration name="Project" type="JupiterNotebook" factoryName="Jupyter Notebook">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -420,7 +436,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.500821" side_tool="true" weight="0.24972618" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49835888" visible="true" weight="0.5131086" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49835888" visible="true" weight="0.48501873" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39794007" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -637,6 +653,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="55" column="35" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
+          <folding>
+            <element signature="e#11#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -644,39 +670,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Preprocessing/utils.py">
+    <entry file="file://$PROJECT_DIR$/gatyes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+        <state relative-caret-position="440">
+          <caret line="305" column="41" selection-start-line="305" selection-start-column="41" selection-end-line="305" selection-end-column="41" />
           <folding>
-            <element signature="e#11#33#0" expanded="true" />
+            <element signature="e#75#97#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Neural_Patches.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="352" column="20" selection-start-line="352" selection-start-column="20" selection-end-line="352" selection-end-column="20" />
+        <state relative-caret-position="-36">
+          <caret line="269" column="45" selection-start-line="269" selection-start-column="45" selection-end-line="269" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sematic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="391" column="20" selection-start-line="391" selection-start-column="20" selection-end-line="391" selection-end-column="20" />
+        <state relative-caret-position="-1378">
+          <caret line="299" column="44" selection-start-line="299" selection-start-column="44" selection-end-line="299" selection-end-column="44" />
           <folding>
             <element signature="e#49#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gatyes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2024">
-          <caret line="389" column="14" lean-forward="true" selection-start-line="389" selection-start-column="14" selection-end-line="389" selection-end-column="14" />
-          <folding>
-            <element signature="e#75#97#0" expanded="true" />
           </folding>
         </state>
       </provider>
