@@ -236,7 +236,7 @@ class Gatyes:
     def run_style_transfer(self,content_path,
                            style_path,
                            num_iterations=1000,
-                           content_weight=1e3,
+                           content_weight=1e5,
                            style_weight=1e-2):
 
         # We don't need to (or want to) train any layers of our model, so we set their
@@ -323,9 +323,6 @@ class Gatyes:
 
         return best_img, best_loss
 
-    content_path = 'samples/Freddie.jpg'
-    style_path = 'samples/Mia.jpg'
-    dataset_folder_path='samples'
 
 
     dataset_folder_path='train_1/'
@@ -375,8 +372,11 @@ if __name__ == "__main__":
     # p.start()
     # p.join()
     device_name="/gpu:0"
+    content_path = 'samples/Freddie.jpg'
+    style_path = 'samples/Mia.jpg'
+
     obj= Gatyes(device_name);
-    p = multiprocessing.Process(target=Gatyes.run_tensorflow())
+    p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
     p.start()
     p.join()
 
