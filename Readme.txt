@@ -37,7 +37,12 @@ utils.py
 The images to test are stored in samples folder (images with semantic maps ), content_folder(  content images ), style_folder(  style_images ) :-
 The semantic images need to created using the installed Pixel ....
 
-The result images are stroed in model_name output results
+The result images are stroed in model_name_output/input folder/image_name_res.png,
+and the intermediate images are stored in model_name_output/input folder/image_name_inter.png
+
+Example:-
+The
+
 
 ## Neural Doodles
 The Neural doodles can be formed using the

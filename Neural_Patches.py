@@ -48,10 +48,6 @@ tf.enable_eager_execution(config=config)
 print("Eager execution: {}".format(tf.executing_eagerly()))
 
 
-dataset_folder_path = 'train_1'
-utils.load_data(dataset_folder_path)
-
-
 ### Prepare the data
 def load_and_process_img(path_to_img):
     img = load_img(path_to_img)
@@ -80,9 +76,17 @@ def deprocess_img(processed_img):
 
 class Neural_patch():
 
-    def __init__(self,device_name,iter=25):
+    results = "neural_results/"
+
+    def __init__(self,device_name,iter=25,dataset_folder_path="final_content"):
         self.device_name=device_name
         self.iterations=iter
+
+        print("writing results to",self.results + dataset_folder_path)
+        if not os.path.exists(self.results + dataset_folder_path):
+            os.makedirs(self.results + dataset_folder_path)
+
+        self.dataset_folder_path=dataset_folder_path
 
     # Content layer where will pull our feature maps
     content_layers = ['block4_conv2']
@@ -263,8 +267,8 @@ class Neural_patch():
     def run_style_transfer(self,content_path, style_path,
                            content_map_path="",style_map_path="",
                            num_iterations=1000,
-                           content_weight=10,
-                           style_weight=25, trans_weight=1):
+                           content_weight=1,
+                           style_weight=2500, trans_weight=1):
         # We don't need to (or want to) train any layers of our model, so we set their
         # trainable to false.
         model = self.get_model()
@@ -316,9 +320,9 @@ class Neural_patch():
         }
 
         # For displaying
-        num_rows = 10
-        num_cols = 100
-        display_interval = 1
+        num_rows = 2
+        num_cols = 10
+        display_interval = num_cols*num_rows
         start_time = time.time()
         global_start = time.time()
 
@@ -346,7 +350,7 @@ class Neural_patch():
                 best_loss = loss
                 best_img = deprocess_img(init_image.numpy())
 
-            if i % display_interval == 0:
+            if i % 1 == 0:
                 start_time = time.time()
 
                 # Use the .numpy() method to get the concrete numpy array
@@ -368,6 +372,8 @@ class Neural_patch():
             plt.xticks([])
             plt.yticks([])
 
+        plt.savefig(self.results + content_path + '_inter.jpg')
+
         return best_img, best_loss
 
 
@@ -377,7 +383,8 @@ class Neural_patch():
             plt.show()
             best, best_loss = self.run_style_transfer(content_path, style_path,
                                                  style_map_path, content_map_path,num_iterations=self.iterations)
-            show_results(results, best, content_path, style_path)
+
+            show_results(self.results, best, content_path, style_path)
 
     ## Run for complete dataset.
     def run_tensorflow2(self):
@@ -401,7 +408,7 @@ class Neural_patch():
         np.random.shuffle(Images)
         np.random.shuffle(sImages)
         # print (Images)
-        Style_Images, Content_Images = sImages[: round(0.50 * len(sImages))], Images[round(0.50 * len(Images)):]
+        Style_Images, Content_Images = sImages, Images
         no_images=100;
 
         with tf.device(self.device_name):
@@ -413,17 +420,11 @@ class Neural_patch():
                 style_path = sdataset_folder_path + "/" + style_path;
 
                 best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=self.iterations)
-                show_results(results,best, content_path, style_path)
+                show_results(self.results,best, content_path, style_path)
                 if i==no_images:
                     break
                 i+=1
 
-
-results = "neural_results/"
-dataset_folder_path = 'samples/'
-
-if not os.path.exists(results + dataset_folder_path):
-    os.makedirs(results + dataset_folder_path)
 
 
 if __name__ == "__main__":
@@ -436,9 +437,9 @@ if __name__ == "__main__":
     style_path = 'samples/Renoir.jpg'
     style_map_path = 'samples/Renoir_color_mask.png'
 
-    obj = Neural_patch(device_name);
-    #p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
-    p = multiprocessing.Process(target=obj.run_tensorflow2())
+    obj = Neural_patch(device_name,1,"samples");
+    p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
+    #p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()
     p.join()
     # option 2: just execute the function for whole dataset

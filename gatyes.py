@@ -41,16 +41,6 @@ print("Eager execution: {}".format(tf.executing_eagerly()))
 
 max_size=512
 
-dataset_folder_path = 'train_1'
-import zipfile
-from zipfile import ZipFile
-
-if not isdir(dataset_folder_path):
-    with ZipFile('train_1.zip') as tar:
-        tar.extractall()
-        tar.close()
-
-
 def load_and_process_img(path_to_img):
     img = load_img(path_to_img,max_size)
     print(img.shape)
@@ -92,10 +82,12 @@ class Gatyes:
     num_style_layers = len(style_layers)
     results = "gatyes_results/"
 
-
-    def __init__(self,device_name,iter=1000):
+    def __init__(self,device_name,iter=1000,dataset_folder_path='final_content/'):
         self.device_name=device_name
         self.iterations=iter
+
+        if not os.path.exists(self.results + dataset_folder_path):
+            os.makedirs(self.results + dataset_folder_path)
 
     # ## Build the Model
     def get_model(self):
@@ -304,7 +296,7 @@ class Gatyes:
                 best_loss = loss
                 best_img = deprocess_img(init_image.numpy())
 
-            if i % display_interval == 0:
+            if i % 1 == 0:
                 start_time = time.time()
 
                 # Use the .numpy() method to get the concrete numpy array
@@ -330,17 +322,6 @@ class Gatyes:
         plt.savefig(self.results + content_path + '_inter.jpg')
         return best_img, best_loss
 
-    dataset_folder_path='final_content/'
-    con_weight = 1e+3
-    sty_weight = 1e-2
-    folder = 'content' + '_' + str(con_weight) + '_' + str(sty_weight) + '/'
-    results += folder
-
-    if not os.path.exists(results + dataset_folder_path):
-        os.makedirs(results + dataset_folder_path)
-    #if not os.path.exists(results + dataset_folder_path):
-     #   os.makedirs(results + dataset_folder_path)
-
     def run_tensorflow(self,content_path,style_path):
 
         with tf.device(self.device_name):
@@ -364,16 +345,17 @@ class Gatyes:
             if filename.endswith(".jpg") or filename.endswith(".png"):
                 sImages.append(filename)
 
-        # print (Images)
+        print (Images)
         np.random.shuffle(Images)
         np.random.shuffle(sImages)
-        # print (Images)
-        Style_Images, Content_Images = sImages[: round( len(sImages))], Images[round(len(Images)):]
+        print (sImages)
+        Style_Images, Content_Images = sImages , Images
 
         no_images=100;
 
         with tf.device(self.device_name):
             i=0;
+            print("fadsf")
             for style_path ,content_path in zip(Style_Images, Content_Images):
                 print(content_path, style_path)
                 content_path = dataset_folder_path + "/" + content_path;
@@ -394,12 +376,15 @@ if __name__ == "__main__":
     # p = multiprocessing.Process(target=run_tensorflow2)
     # p.start()
     # p.join()
-    device_name="/gpu:0"
-    content_path = 'final_content/chicago.jpg'
-    style_path = 'style/wave.jpg'
+    device_name="/cpu:0"
+    content_path = 'samples/ck.jpg'
+    content_map_path = 'samples/ck_color_mask.png'
+    style_path = 'samples/Renoir.jpg'
+    style_map_path = 'samples/Renoir_color_mask.png'
 
-    obj= Gatyes(device_name);
-    p = multiprocessing.Process(target=obj.run_tensorflow2())
+    obj= Gatyes(device_name,dataset_folder_path="samples");
+    p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
+    #p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()
     p.join()
     plt.show()

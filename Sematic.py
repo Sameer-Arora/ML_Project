@@ -51,14 +51,10 @@ print("Eager execution: {}".format(tf.executing_eagerly()))
 config = tf.ConfigProto()
 config.gpu_options.allocator_type = 'BFC'
 
-dataset_folder_path = 'train_1'
-utils.load_data(dataset_folder_path)
-
-
 ### Prepare the data
 def load_and_process_img(path_to_img):
     img = load_img(path_to_img)
-    # print("img shape",img.shape)
+    #print("img shape",img.shape,"path ",path_to_img)
     img = tf.keras.applications.vgg19.preprocess_input(img)
     return img
 
@@ -97,10 +93,16 @@ class Semantic():
     num_content_layers = len(content_layers)
     num_style_layers = len(style_layers)
 
+    results = "semantic_results/"
 
-    def __init__(self,device_name,iter=25):
+    def __init__(self,device_name,iter=25,dataset_folder_path="final_content"):
         self.device_name=device_name
         self.iterations=iter
+
+        if not os.path.exists(self.results + dataset_folder_path):
+            os.makedirs(self.results + dataset_folder_path)
+
+        self.dataset_folder_path = dataset_folder_path
 
     # ## Build the Model
     def get_model(self):
@@ -357,9 +359,9 @@ class Semantic():
         }
 
         # For displaying
-        num_rows = 10
-        num_cols = 100
-        display_interval = 1
+        num_rows = 2
+        num_cols = 10
+        display_interval = num_cols*num_rows
         start_time = time.time()
         global_start = time.time()
 
@@ -387,7 +389,7 @@ class Semantic():
                 best_loss = loss
                 best_img = deprocess_img(init_image.numpy())
 
-            if i % display_interval == 0:
+            if i % 1 == 0:
                 start_time = time.time()
 
                 # Use the .numpy() method to get the concrete numpy array
@@ -409,13 +411,15 @@ class Semantic():
             plt.xticks([])
             plt.yticks([])
 
+        plt.savefig(self.results + content_path + '_inter.jpg')
+
         return best_img, best_loss
 
     def run_tensorflow(self,content_path,style_path):
         with tf.device(self.device_name):
             best, best_loss = self.run_style_transfer(content_path, style_path,
                                                  style_map_path, content_map_path, num_iterations=self.iterations)
-            show_results(results, best, content_path, style_path)
+            show_results(self.results, best, content_path, style_path)
 
 
     ## Run for complete dataset.
@@ -439,7 +443,7 @@ class Semantic():
         np.random.shuffle(Images)
         np.random.shuffle(sImages)
         # print (Images)
-        Style_Images, Content_Images = sImages[: round(0.50 * len(sImages))], Images[round(0.50 * len(Images)):]
+        Style_Images, Content_Images = sImages, Images
         no_images = 100;
 
         with tf.device(self.device_name):
@@ -456,17 +460,11 @@ class Semantic():
                 best, best_loss = self.run_style_transfer(content_path, style_path,content_map_path=content_map_path
                                                           ,style_map_path=style_map_path, num_iterations=self.iterations)
 
-                show_results(results, best, content_path, style_path)
+                show_results(self.results, best, content_path, style_path)
                 if i == no_images:
                     break
                 i += 1
 
-
-results = "results/"
-dataset_folder_path = 'samples/'
-
-if not os.path.exists(results + dataset_folder_path):
-    os.makedirs(results + dataset_folder_path)
 
 
 if __name__ == "__main__":
@@ -477,7 +475,7 @@ if __name__ == "__main__":
     style_path = 'samples/Renoir.jpg'
     style_map_path = 'samples/Renoir_color_mask.png'
 
-    obj = Semantic(device_name);
+    obj = Semantic(device_name,25,"samples");
     p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
     p.start()
     p.join()
