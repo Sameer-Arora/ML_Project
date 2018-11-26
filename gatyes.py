@@ -90,6 +90,7 @@ class Gatyes:
     num_style_layers = len(style_layers)
     results = "gatyes_results/"
 
+
     def __init__(self,device_name):
         self.device_name=device_name
 
@@ -236,7 +237,7 @@ class Gatyes:
     def run_style_transfer(self,content_path,
                            style_path,
                            num_iterations=1000,
-                           content_weight=1e5,
+                           content_weight=1e3,
                            style_weight=1e-2):
 
         # We don't need to (or want to) train any layers of our model, so we set their
@@ -284,6 +285,7 @@ class Gatyes:
         max_vals = 255 - norm_means
 
         imgs = []
+
         for i in range(num_iterations):
             grads, all_loss = self.compute_grads(cfg)
             loss, style_score, content_score = all_loss
@@ -320,43 +322,62 @@ class Gatyes:
             plt.imshow(img)
             plt.xticks([])
             plt.yticks([])
+            plt.draw()
 
         return best_img, best_loss
 
 
 
-    dataset_folder_path='train_1/'
+    dataset_folder_path='final_content/'
+    con_weight = 1e+3
+    sty_weight = 1e-2
+    folder = 'content' + '_' + str(con_weight) + '_' + str(sty_weight) + '/'
+    results += folder
 
     if not os.path.exists(results + dataset_folder_path):
         os.makedirs(results + dataset_folder_path)
+    #if not os.path.exists(results + dataset_folder_path):
+     #   os.makedirs(results + dataset_folder_path)
 
     def run_tensorflow(self,content_path,style_path):
+
         with tf.device(self.device_name):
-            best, best_loss = self.run_style_transfer(content_path,style_path, num_iterations=100)
+            best, best_loss = self.run_style_transfer(content_path,style_path, num_iterations=1000)
             show_results(self.results,best,content_path,style_path)
 
     def run_tensorflow2(self):
         ## running for our dataset
+        ## running for our dataset
         Images = []
-        dataset_folder_path='train_1/'
+        sImages = []
+
+        dataset_folder_path = 'final_content'
+        sdataset_folder_path = 'style'
+
         for filename in os.listdir(dataset_folder_path):
             if filename.endswith(".jpg") or filename.endswith(".png"):
                 Images.append(filename)
 
+        for filename in os.listdir(sdataset_folder_path):
+            if filename.endswith(".jpg") or filename.endswith(".png"):
+                sImages.append(filename)
+
         # print (Images)
         np.random.shuffle(Images)
+        np.random.shuffle(sImages)
         # print (Images)
-        Style_Images, Content_Images = Images[: round(0.50 * len(Images))], Images[round(0.50 * len(Images)):]
+        Style_Images, Content_Images = sImages[: round(0.50 * len(sImages))], Images[round(0.50 * len(Images)):]
+
         no_images=100;
 
         with tf.device(self.device_name):
             i=0;
-            for content_path, style_path in zip(Style_Images, Content_Images):
+            for style_path ,content_path in zip(Style_Images, Content_Images):
                 print(content_path, style_path)
                 content_path = dataset_folder_path + "/" + content_path;
-                style_path = dataset_folder_path + "/" + style_path;
+                style_path = sdataset_folder_path + "/" + style_path;
 
-                best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=100)
+                best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=1000)
                 show_results(self.results,best, content_path, style_path)
                 if i==no_images:
                     break;
@@ -372,11 +393,12 @@ if __name__ == "__main__":
     # p.start()
     # p.join()
     device_name="/gpu:0"
-    content_path = 'samples/Freddie.jpg'
-    style_path = 'samples/Mia.jpg'
+    content_path = 'final_content/chicago.jpg'
+    style_path = 'style/wave.jpg'
 
     obj= Gatyes(device_name);
-    p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
+    p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()
     p.join()
+    plt.show()
 

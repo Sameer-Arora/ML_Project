@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="630eff3c-c25c-472d-9798-8b3d7afb4380" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Neural_Patches.py" beforeDir="false" afterPath="$PROJECT_DIR$/Neural_Patches.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocessing/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocessing/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sematic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sematic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gatyes.py" beforeDir="false" afterPath="$PROJECT_DIR$/gatyes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gatyes_results/samples/Freddie.jpg_res.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/gatyes_results/samples/Freddie.jpg_res.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sematic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="438" selection-start-line="438" selection-end-line="438" />
+            <state relative-caret-position="94">
+              <caret line="442" column="34" selection-start-line="442" selection-start-column="34" selection-end-line="442" selection-end-column="34" />
               <folding>
                 <element signature="e#49#71#0" expanded="true" />
               </folding>
@@ -57,38 +56,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Neural_Patches.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="425" column="3" lean-forward="true" selection-start-line="417" selection-start-column="4" selection-end-line="425" selection-end-column="3" />
+            <state relative-caret-position="297">
+              <caret line="408" column="30" selection-start-line="408" selection-start-column="30" selection-end-line="408" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/PIL/Image.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="2418" selection-start-line="2418" selection-end-line="2418" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/array_grad.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="747" selection-start-line="747" selection-end-line="747" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gatyes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1274">
-              <caret line="378" column="81" selection-start-line="378" selection-start-column="81" selection-end-line="378" selection-end-column="81" />
+            <state relative-caret-position="129">
+              <caret line="372" column="41" lean-forward="true" selection-start-line="372" selection-start-column="41" selection-end-line="372" selection-end-column="41" />
               <folding>
                 <element signature="e#75#97#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Preprocessing/te.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="0" />
             </state>
           </provider>
         </entry>
@@ -105,20 +104,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Preprocessing/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-859">
-              <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
+            <state relative-caret-position="162">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
               <folding>
                 <element signature="e#11#33#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Preprocessing/Theano.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -135,12 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>load_img</find>
-      <find>.squeeze(0)[0]</find>
-      <find>extract_image_patches</find>
-      <find>multiply</find>
-      <find>apply_gradients</find>
-      <find>compute_grads</find>
       <find>tensor_matches</find>
       <find>compute</find>
       <find>content_path</find>
@@ -160,10 +144,16 @@
       <find>type</find>
       <find>deprocess_img</find>
       <find>depro</find>
-      <find>results</find>
       <find>args</find>
       <find>gpu</find>
       <find>content_wei</find>
+      <find>results</find>
+      <find>run_style</find>
+      <find>run_styl</find>
+      <find>con_we</find>
+      <find>sty_we</find>
+      <find>run_sty</find>
+      <find>25</find>
       <find>plt.show</find>
     </findStrings>
     <replaceStrings>
@@ -186,17 +176,17 @@
         <option value="$PROJECT_DIR$/Preprocessing/Keras.py" />
         <option value="$PROJECT_DIR$/Preprocessing/te.ipynb" />
         <option value="$PROJECT_DIR$/Preprocessing/te.py" />
-        <option value="$PROJECT_DIR$/Readme.txt" />
         <option value="$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/array_grad.py" />
         <option value="$PROJECT_DIR$/test_gpu.py" />
         <option value="$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.py" />
-        <option value="$PROJECT_DIR$/Preprocessing/utils.py" />
         <option value="$PROJECT_DIR$/Semantic_Style.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/pip_requirements.txt" />
         <option value="$PROJECT_DIR$/doo.py" />
-        <option value="$PROJECT_DIR$/gatyes.py" />
         <option value="$PROJECT_DIR$/Main.py" />
+        <option value="$PROJECT_DIR$/Readme.txt" />
+        <option value="$PROJECT_DIR$/Preprocessing/utils.py" />
+        <option value="$PROJECT_DIR$/gatyes.py" />
         <option value="$PROJECT_DIR$/Neural_Patches.py" />
         <option value="$PROJECT_DIR$/Sematic.py" />
       </list>
@@ -253,7 +243,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Sematic">
+  <component name="RunManager" selected="Python.gatyes">
     <configuration name="Project" type="JupiterNotebook" factoryName="Jupyter Notebook">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -438,7 +428,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.500821" side_tool="true" weight="0.24972618" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49835888" visible="true" weight="0.45318353" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49835888" visible="true" weight="0.48782772" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39794007" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -531,13 +521,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Preprocessing/te.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py" />
     <entry file="file://$PROJECT_DIR$/Preprocessing/Keras.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -566,13 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Readme.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/array_grad.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-68">
@@ -590,27 +566,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/PIL/Image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="2418" selection-start-line="2418" selection-end-line="2418" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Preprocessing/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-859">
-          <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
-          <folding>
-            <element signature="e#11#33#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -644,16 +603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Semantic_Style.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="405" column="25" selection-start-line="405" selection-start-column="25" selection-end-line="405" selection-end-column="25" />
-          <folding>
-            <element signature="e#49#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/doo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-277">
@@ -662,16 +611,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Neural_patches.py" />
-    <entry file="file://$PROJECT_DIR$/gatyes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1274">
-          <caret line="378" column="81" selection-start-line="378" selection-start-column="81" selection-end-line="378" selection-end-column="81" />
-          <folding>
-            <element signature="e#75#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="726">
@@ -682,19 +621,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Neural_Patches.py">
+    <entry file="file://$PROJECT_DIR$/Readme.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="425" column="3" lean-forward="true" selection-start-line="417" selection-start-column="4" selection-end-line="425" selection-end-column="3" />
+        <state relative-caret-position="220">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/te.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Copy_of_Neural_Style_Transfer_with_Eager_Execution.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Semantic_Style.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="414" lean-forward="true" selection-start-line="411" selection-start-column="10" selection-end-line="414" />
+          <folding>
+            <element signature="e#49#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+          <folding>
+            <element signature="e#11#33#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sematic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="438" selection-start-line="438" selection-end-line="438" />
+        <state relative-caret-position="94">
+          <caret line="442" column="34" selection-start-line="442" selection-start-column="34" selection-end-line="442" selection-end-column="34" />
           <folding>
             <element signature="e#49#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neural_Patches.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="408" column="30" selection-start-line="408" selection-start-column="30" selection-end-line="408" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gatyes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="372" column="41" lean-forward="true" selection-start-line="372" selection-start-column="41" selection-end-line="372" selection-end-column="41" />
+          <folding>
+            <element signature="e#75#97#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -417,26 +417,39 @@ class Semantic():
     def run_tensorflow2(self):
         ## running for our dataset
         Images = []
-        dataset_folder_path = 'train_1/'
+        sImages = []
+
+        dataset_folder_path = 'final_content'
+        sdataset_folder_path = 'style'
 
         for filename in os.listdir(dataset_folder_path):
             if filename.endswith(".jpg") or filename.endswith(".png"):
                 Images.append(filename)
 
+        for filename in os.listdir(sdataset_folder_path):
+            if filename.endswith(".jpg") or filename.endswith(".png"):
+                sImages.append(filename)
+
         # print (Images)
         np.random.shuffle(Images)
+        np.random.shuffle(sImages)
         # print (Images)
-        Style_Images, Content_Images = Images[: round(0.50 * len(Images))], Images[round(0.50 * len(Images)):]
+        Style_Images, Content_Images = sImages[: round(0.50 * len(sImages))], Images[round(0.50 * len(Images)):]
         no_images = 100;
 
         with tf.device("/cpu:0"):
 
             i = 0;
-            for content_path, style_path in zip(Style_Images, Content_Images):
+            for style_path ,content_path in zip(Style_Images, Content_Images):
                 print("Path", content_path, style_path)
+
                 content_path = dataset_folder_path + "/" + content_path;
-                style_path = dataset_folder_path + "/" + style_path;
-                best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=25)
+                style_path = sdataset_folder_path + "/" + style_path;
+                content_map_path = content_path.split('.')[0] + "_sem.jpg";
+                style_map_path = style_path.split('.')[0] + "_sem.jpg";
+
+                best, best_loss = self.run_style_transfer(content_path, style_path,content_map_path=content_map_path,style_map_path=style_map_path, num_iterations=25)
+
                 show_results(results, best, content_path, style_path)
                 if i == no_images:
                     break
@@ -455,9 +468,9 @@ if __name__ == "__main__":
     device_name = "/gpu:0"
 
     content_path = 'samples/Freddie.jpg'
-    content_map_path = 'samples/Freddie_sem.png'
+    content_map_path = 'samples/Freddie_color_mask.png'
     style_path = 'samples/Mia.jpg'
-    style_map_path = 'samples/Mia_sem.png'
+    style_map_path = 'samples/Mia_color_mask.png'
 
     obj = Semantic(device_name);
     p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))

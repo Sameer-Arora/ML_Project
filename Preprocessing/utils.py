@@ -57,8 +57,9 @@ def load_img(path_to_img):
     max_dim = 512
     img = Image.open(path_to_img).convert('RGB')
     long = max(img.size)
-    img = img.resize((224, 224), Image.ANTIALIAS)
-
+    scale = max_dim / long
+    img = img.resize((round(img.size[0] * scale), round(img.size[1] * scale)), Image.ANTIALIAS)
+    #img = img.resize((224, 224), Image.ANTIALIAS)
     img = kp_image.img_to_array(img)
     # We need to broadcast the image array such that it has a batch dimension
     img = np.expand_dims(img, axis=0)

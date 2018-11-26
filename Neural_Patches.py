@@ -377,27 +377,36 @@ class Neural_patch():
 
     ## Run for complete dataset.
     def run_tensorflow2(self):
+
         ## running for our dataset
         Images = []
-        dataset_folder_path='train_1/'
+        sImages = []
+
+        dataset_folder_path = 'final_content'
+        sdataset_folder_path = 'style'
 
         for filename in os.listdir(dataset_folder_path):
             if filename.endswith(".jpg") or filename.endswith(".png"):
                 Images.append(filename)
 
+        for filename in os.listdir(sdataset_folder_path):
+            if filename.endswith(".jpg") or filename.endswith(".png"):
+                sImages.append(filename)
+
         # print (Images)
         np.random.shuffle(Images)
+        np.random.shuffle(sImages)
         # print (Images)
-        Style_Images, Content_Images = Images[: round(0.50 * len(Images))], Images[round(0.50 * len(Images)):]
+        Style_Images, Content_Images = sImages[: round(0.50 * len(sImages))], Images[round(0.50 * len(Images)):]
         no_images=100;
 
         with tf.device("/cpu:0"):
 
             i=0;
-            for content_path, style_path in zip(Style_Images, Content_Images):
+            for style_path ,content_path in zip(Style_Images, Content_Images):
                 print("Path",content_path, style_path)
                 content_path = dataset_folder_path + "/" + content_path;
-                style_path = dataset_folder_path + "/" + style_path;
+                style_path = sdataset_folder_path + "/" + style_path;
 
                 best, best_loss = self.run_style_transfer(content_path, style_path, num_iterations=25)
                 show_results(results,best, content_path, style_path)
@@ -406,7 +415,7 @@ class Neural_patch():
                 i+=1
 
 
-results = "results/"
+results = "neural_results/"
 dataset_folder_path = 'samples/'
 
 if not os.path.exists(results + dataset_folder_path):
@@ -423,7 +432,8 @@ if __name__ == "__main__":
     style_map_path = 'samples/Mia_sem.png'
 
     obj = Neural_patch(device_name);
-    p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
+    #p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
+    p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()
     p.join()
     # option 2: just execute the function for whole dataset
