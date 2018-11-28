@@ -43,6 +43,10 @@ from Preprocessing import Theano
 
 config = tf.ConfigProto()
 config.gpu_options.allocator_type = 'BFC'
+config.gpu_options.allocator_type = 'BFC'
+
+tf.enable_eager_execution(config=config)
+print("Eager execution: {}".format(tf.executing_eagerly()))
 
 ### Prepare the data
 def load_and_process_img(path_to_img):
@@ -288,7 +292,7 @@ class Semantic():
 
     def run_style_transfer(self,content_path, style_path,
                            content_map_path="", style_map_path="",
-                           num_iterations=1000,
+                           num_iterations=100,
                            content_weight=1e4,
                            style_weight=1e-2, trans_weight=1):
         # We don't need to (or want to) train any layers of our model, so we set their
@@ -332,7 +336,7 @@ class Semantic():
 
         init_image = tfe.Variable(init_image, dtype=tf.float32)
         # Create our optimizer
-        opt = tf.train.AdamOptimizer(learning_rate=5, beta1=0.99, epsilon=1e-1)
+        opt = tf.train.AdamOptimizer(learning_rate=50, beta1=0.99, epsilon=1e-1)
 
         # For displaying intermediate images
         iter_count = 1
@@ -413,6 +417,9 @@ class Semantic():
 
     def run_tensorflow(self,content_path,style_path):
         with tf.device(self.device_name):
+            content_map_path = content_path.split('.')[0] + "_color_mask.png";
+            style_map_path = style_path.split('.')[0] + "__color_mask.png";
+
             best, best_loss = self.run_style_transfer(content_path, style_path,
                                                  style_map_path, content_map_path, num_iterations=self.iterations)
             show_results(self.results, best, content_path, style_path)
@@ -450,8 +457,8 @@ class Semantic():
 
                 content_path = dataset_folder_path + "/" + content_path;
                 style_path = sdataset_folder_path + "/" + style_path;
-                content_map_path = content_path.split('.')[0] + "_sem.jpg";
-                style_map_path = style_path.split('.')[0] + "_sem.jpg";
+                content_map_path = content_path.split('.')[0] + "_color_mask.jpg";
+                style_map_path = style_path.split('.')[0] + "_color_mask.jpg";
 
                 best, best_loss = self.run_style_transfer(content_path, style_path,content_map_path=content_map_path
                                                           ,style_map_path=style_map_path, num_iterations=self.iterations)

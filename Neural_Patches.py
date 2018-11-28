@@ -142,11 +142,12 @@ class Neural_patch():
     #    patches=tf.reshape(patches,[(target_style.shape[1]-2)*(target_style.shape[2]-2),-1 ])
         patches=tf.reshape(patches,[( ( target_style.shape[1]- size )// stride +1 )*( ( target_style.shape[2]- size )// stride +1 ),-1 ])
         #print(patches)
+        nearest_nei=[]
 
         for patch in patches:
             min_norm=1000000000000;
             sel_nei=0;
-
+            #print(patch.shape)
             for base_patch in base_style_patches:
                 # print(patch)
                 # print(base_patch)
@@ -155,7 +156,9 @@ class Neural_patch():
                 if min_norm > cross_corre:
                     min_norm=cross_corre;
                     sel_nei= tf.convert_to_tensor(base_patch);
+                    #print(sel_nei.shape)
 
+            nearest_nei.append(sel_nei)
             style_loss+= tf.reduce_mean(tf.square(patch-sel_nei));
 
         return style_loss
@@ -302,7 +305,7 @@ class Neural_patch():
 
         init_image = tfe.Variable(init_image, dtype=tf.float32)
         # Create our optimizer
-        opt = tf.train.AdamOptimizer(learning_rate=5, beta1=0.99, epsilon=1e-1)
+        opt = tf.train.AdamOptimizer(learning_rate=50, beta1=0.99, epsilon=1e-1)
 
         # For displaying intermediate images
         iter_count = 1
@@ -336,7 +339,6 @@ class Neural_patch():
         for i in range(num_iterations):
             print("himmat rakho", time.time() - start_time )
             grads, all_loss = self.compute_grads(cfg)
-            defu =tf.contrib.eager.defun(self.compute_grads)
             print("gradient aega", time.time() - start_time )
             loss, style_score, content_score, trans_score = all_loss
             opt.apply_gradients([(grads, init_image)])
@@ -352,8 +354,6 @@ class Neural_patch():
                 best_img = deprocess_img(init_image.numpy())
 
             if i % 1 == 0:
-
-
                 # Use the .numpy() method to get the concrete numpy array
                 plot_img = init_image.numpy()
                 plot_img = deprocess_img(plot_img)
@@ -382,8 +382,6 @@ class Neural_patch():
 
     def run_tensorflow(self,content_path,style_path):
         with tf.device(self.device_name):
-            imshow(deprocess_img(load_and_process_img(content_path)),squeze=False)
-            plt.show()
             best, best_loss = self.run_style_transfer(content_path, style_path,
                                                  style_map_path, content_map_path,num_iterations=self.iterations)
 
