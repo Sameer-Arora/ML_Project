@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 # ## Setup
+import argparse
 import multiprocessing
 import os
 from os.path import isfile, isdir
@@ -18,9 +19,9 @@ from skimage.io import imread
 
 
 import matplotlib as mpl
-
 mpl.rcParams['figure.figsize'] = (10, 10)
 mpl.rcParams['axes.grid'] = False
+
 
 from PIL import Image
 import time
@@ -39,14 +40,6 @@ from Preprocessing import utils
 from Preprocessing.utils import load_data, load_img, imshow, load_noise_img, show_results
 from Preprocessing import Theano
 
-# Assume that you have 12GB of GPU memory and want to allocate ~4GB:
-gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333)
-config = tf.ConfigProto()
-config.gpu_options.allocator_type = 'BFC'
-
-tf.enable_eager_execution(config=config)
-
-print("Eager execution: {}".format(tf.executing_eagerly()))
 
 config = tf.ConfigProto()
 config.gpu_options.allocator_type = 'BFC'
@@ -472,21 +465,37 @@ class Semantic():
 
 if __name__ == "__main__":
 
-    device_name = "/gpu:0"
-    content_path = 'samples/ck.jpg'
-    content_map_path = 'samples/ck_color_mask.png'
-    style_path = 'samples/Renoir.jpg'
-    style_map_path = 'samples/Renoir_color_mask.png'
 
-    obj = Semantic(device_name,5,"samples");
+    parser = argparse.ArgumentParser(description='Generate a new image by applying style onto a content image.',
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    add_arg = parser.add_argument
+    add_arg('--content', default=None, type=str )
+    add_arg('--style', default=None, type=str)
+    add_arg('--output', default='output.png', type=str)
+    add_arg('--output-size', default=None, type=str)
+    add_arg('--iterations', default=100, type=int)
+    add_arg('--device', default='cpu', type=str)
+    add_arg('--model', default='Gateys', type=str)
+    add_arg('--folder', default='samples', type=str)
+
+    args = parser.parse_args()
+
+    device_name = args.device
+    content_path = args.content
+    style_path = args.style
+    folder=args.folder
+    iter= args.iterations
+
+    obj = Semantic(device_name,iter,folder);
     p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
     p.start()
     p.join()
 
-    # option 2: just execute the function for whole dataset
-    # p = multiprocessing.Process(target=run_tensorflow2)
-    # p.start()
-    # p.join()
-
-    # wait until user presses enter key
-    plt.pause(10)
+#     # option 2: just execute the function for whole dataset
+#     # p = multiprocessing.Process(target=run_tensorflow2)
+#     # p.start()
+#     # p.join()
+#
+#     # wait until user presses enter key
+#     plt.pause(10)

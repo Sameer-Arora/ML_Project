@@ -4,16 +4,12 @@
 # ## Setup
 # 
 # ### Download Images
+import argparse
 import multiprocessing
 import os
 from os.path import isfile, isdir
 import numpy as np
 import matplotlib.pyplot as plt
-
-import theano
-from IPython import get_ipython
-from skimage.color import rgb2gray, gray2rgb
-from skimage.io import imread
 
 from Preprocessing.utils import load_noise_img, load_img, imshow, show_results
 
@@ -371,22 +367,38 @@ class Gatyes:
                     break;
                 i+=1
 
-
+#
 if __name__ == "__main__":
-    # imshow(deprocess_img(load_and_process_img(content_path)) ,squeze= False )
-    # plt.show()
-    # # option 1: execute code with extra process
-    #
-    # p = multiprocessing.Process(target=run_tensorflow2)
-    # p.start()
-    # p.join()
-    device_name="/cpu:0"
+
+    device_name = "/gpu:0"
     content_path = 'samples/ck.jpg'
     content_map_path = 'samples/ck_color_mask.png'
     style_path = 'samples/Renoir.jpg'
     style_map_path = 'samples/Renoir_color_mask.png'
+    parser = argparse.ArgumentParser(description='Generate a new image by applying style onto a content image.',
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    obj= Gatyes(device_name,50,dataset_folder_path="samples");
+    add_arg = parser.add_argument
+    add_arg('--content', default=None, type=str)
+    add_arg('--style', default=None, type=str)
+    add_arg('--output', default='output.png', type=str)
+    add_arg('--output-size', default=None, type=str)
+    add_arg('--iterations', default=100, type=int)
+    add_arg('--device', default='cpu', type=str)
+    add_arg('--model', default='Gateys', type=str)
+    add_arg('--folder', default='samples', type=str)
+
+    args = parser.parse_args()
+
+    device_name = args.device
+    content_path = args.content
+    style_path = args.style
+    folder = args.folder
+    iter = args.iterations
+
+
+    obj = Gatyes(device_name, iter, folder);
+
     p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
     #p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()

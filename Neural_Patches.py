@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # ## Setup
+import argparse
 import multiprocessing
 import os
 from os.path import isfile, isdir
@@ -331,14 +332,16 @@ class Neural_patch():
         max_vals = 255 - norm_means
 
         imgs = []
+        start_time = time.time()
         for i in range(num_iterations):
-            print("himmat rakho")
+            print("himmat rakho", time.time() - start_time )
             grads, all_loss = self.compute_grads(cfg)
-            print("gradient aega")
+            defu =tf.contrib.eager.defun(self.compute_grads)
+            print("gradient aega", time.time() - start_time )
             loss, style_score, content_score, trans_score = all_loss
             opt.apply_gradients([(grads, init_image)])
 
-            print("gradient agya")
+            print("gradient agya", time.time() - start_time )
             clipped = tf.clip_by_value(init_image, min_vals, max_vals)
             init_image.assign(clipped)
             end_time = time.time()
@@ -349,7 +352,7 @@ class Neural_patch():
                 best_img = deprocess_img(init_image.numpy())
 
             if i % 1 == 0:
-                start_time = time.time()
+
 
                 # Use the .numpy() method to get the concrete numpy array
                 plot_img = init_image.numpy()
@@ -426,7 +429,6 @@ class Neural_patch():
                 i+=1
 
 
-
 if __name__ == "__main__":
     # option 1: execute code with extra process for just two images
     device_name = "/cpu:0"
@@ -436,16 +438,37 @@ if __name__ == "__main__":
     content_map_path = 'samples/ck_color_mask.png'
     style_path = 'samples/Renoir.jpg'
     style_map_path = 'samples/Renoir_color_mask.png'
+    parser = argparse.ArgumentParser(description='Generate a new image by applying style onto a content image.',
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    obj = Neural_patch(device_name,5,"samples");
+    add_arg = parser.add_argument
+    add_arg('--content', default=None, type=str )
+    add_arg('--style', default=None, type=str)
+    add_arg('--output', default='output.png', type=str)
+    add_arg('--output-size', default=None, type=str)
+    add_arg('--iterations', default=100, type=int)
+    add_arg('--device', default='cpu', type=str)
+    add_arg('--model', default='Gateys', type=str)
+    add_arg('--folder', default='samples', type=str)
+
+    args = parser.parse_args()
+
+    device_name = args.device
+    content_path = args.content
+    style_path = args.style
+    folder=args.folder
+    iter= args.iterations
+
+    obj = Neural_patch(device_name,iter,folder);
     p = multiprocessing.Process(target=obj.run_tensorflow(content_path,style_path))
     #p = multiprocessing.Process(target=obj.run_tensorflow2())
     p.start()
     p.join()
     plt.show()
-    # option 2: just execute the function for whole dataset
-    # p = multiprocessing.Process(target=run_tensorflow2)
-    # p.start()
-    # p.join()
+
+#     # option 2: just execute the function for whole dataset
+#     # p = multiprocessing.Process(target=run_tensorflow2)
+#     # p.start()
+#     # p.join()
 
     # wait until user presses enter key
