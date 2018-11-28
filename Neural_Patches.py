@@ -134,7 +134,7 @@ class Neural_patch():
         style_loss = 0
         #print(target_style)
         # Extract the patches from the current image, as well as their magnitude.
-        size = 3
+        size = 5
         stride = 4
         patches = tf.squeeze(tf.extract_image_patches( target_style, ksizes=[1, size, size, 1], strides=[1, stride, stride, 1]
                                                       , rates=[1, 1, 1, 1], padding='VALID'),0)
@@ -272,7 +272,7 @@ class Neural_patch():
                            content_map_path="",style_map_path="",
                            num_iterations=1000,
                            content_weight=1e4,
-                           style_weight=1e-2, trans_weight=1):
+                           style_weight=1e-2, trans_weight=0):
         # We don't need to (or want to) train any layers of our model, so we set their
         # trainable to false.
         model = self.get_model()
@@ -282,7 +282,7 @@ class Neural_patch():
         # Get the style and content feature representations (from our specified intermediate layers)
         style_features, content_features = self.get_feature_representations(model, content_path, style_path)
 
-        size = 3
+        size = 5
         stride = 4
         base_style_patches=[]
         i=0

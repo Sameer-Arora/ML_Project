@@ -24,7 +24,7 @@ Main.py is the main file and is used to navigate the project.
 1) Gateys:-
 To run python3 gatyes.py  --content samples/ck.jpg --style  samples/Renoir.jpg --iterations 1 --device cpu --folder samples
 To run python3 Neural_Patches.py  --content samples/ck.jpg --style  samples/Renoir.jpg --iterations 1 --device cpu --folder samples
-To run python3 Semantic.py  --content samples/ck.jpg --style  samples/Renoir.jpg --iterations 1 --device cpu --folder samples
+To run python3 Sematic.py --style style/the_scream.jpg --content samples/ck.jpg --folder=samples --device=cpu --iterations=100
 
 
 The Preprocessing folder contains baisc files for the utiilities:-
