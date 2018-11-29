@@ -24,7 +24,6 @@ import functools
 
 # In[3]:
 import tensorflow as tf
-import tensornets as nets
 import tensorflow.contrib.eager as tfe
 
 from tensorflow.python.keras.preprocessing import image as kp_image
